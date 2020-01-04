@@ -104,7 +104,7 @@
         </div>
     </div>
 
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade bs-example-modal-lg" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
 
@@ -132,8 +132,8 @@
                         <input type="text" name="telp" id="telp" placeholder="No Telp" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="kelas" class="label-control">Kelas</label>
-                        <input type="text" name="kelas" id="auto_complete_kelas" placeholder="Kelas" class="form-control"/>
+                        <label for="kelas_select" class="label-control">Kelas</label>
+                        <select name="kelas" class="form-control" id="kelas_select"></select>
                     </div>                    
                     <div class="form-group">
                         <label for="" class="label-control">Action</label>
@@ -151,7 +151,7 @@
         </div>
     </div>
 
-    <div class="modal fade bs-example-modal-edit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade bs-example-modal-edit" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
 
@@ -179,8 +179,8 @@
                         <input type="text" name="telp" id="telp_edit" placeholder="No Telp" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="auto_complete_kelas_edit" class="label-control">Kelas</label>
-                        <input type="text" name="kelas" id="auto_complete_kelas_edit" placeholder="Kelas" class="form-control"/>
+                        <label for="kelas_edit_select" class="label-control">Kelas</label>
+                        <select name="kelas" class="form-control" id="kelas_edit_select"></select>
                     </div>    
                     <div class="form-group">
                         <label for="" class="label-control">Action</label>
@@ -353,7 +353,7 @@
                         nisn: $("#nisn").val(),
                         nis: $("#nis").val(),
                         telp: $("#telp").val(),
-                        classroom_id: laravelApi.kelas_idAdd
+                        classroom_id: $("#kelas_select").val()
                     },
                     success: function(res) {
                         callback(res)
@@ -407,7 +407,7 @@
                         nisn: $("#nisn_edit").val(),
                         nis: $("#nis_edit").val(),
                         telp: $("#telp_edit").val(),
-                        classroom_id: laravelApi.kelas_idAdd
+                        classroom_id: $("#kelas_edit_select").val()
                     },
                     success:  (data) => {
                         callback(data)
@@ -468,24 +468,22 @@
                 })
             },
             kelasAutoComplete: (data) => {
+                $('#kelas_select').html("")
+                $('#kelas_edit_select').html("")
+                data.map((value,index) => {
+                    $('#kelas_select').append(`<option value='${value.id}'>${value.generation.generation} - ${value.classroom}</option>`)
+                    $('#kelas_edit_select').append(`<option value='${value.id}'>${value.generation.generation} - ${value.classroom}</option>`)
+                })
 
-                let res = data.map((value, index) => {
-                    return {data:`${value.id}`, value:value.generation.generation+" - "+value.classroom}
+                $('#kelas_select').select2({
+                    theme:"bootstrap",
+                    width:"100%"
+                })
+                $('#kelas_edit_select').select2({
+                    theme:"bootstrap",
+                    width:"100%"
                 })                
-
-                $('#auto_complete_kelas').autocomplete({
-                    lookup:res,
-                    onSelect: function(result) {
-                        laravelApi.kelas_idAdd = result.data
-                    }
-                })
-
-                $('#auto_complete_kelas_edit').autocomplete({
-                    lookup:res,
-                    onSelect: function(result) {
-                        laravelApi.kelas_idAdd = result.data
-                    }
-                })
+                
             },
             editSiswa: (id) => {
                 laravelApi.find(id, function(res) {
@@ -494,7 +492,7 @@
                     $("#nisn_edit").val(res.nisn)
                     $("#nis_edit").val(res.nis)
                     $("#telp_edit").val(res.telp) 
-                    $("#auto_complete_kelas_edit").val(res.classroom.generation.generation + " - " + res.classroom.classroom)
+                    $("#kelas_edit").val(res.classroom_id)
                     laravelApi.kelas_idAdd = res.classroom_id
                 })
             }            

@@ -35,7 +35,7 @@
         <link href="../vendors/starrr/dist/starrr.css" rel="stylesheet">
         <!-- bootstrap-daterangepicker -->
         <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-
+        <link rel="stylesheet" href="../vendors/select2_improve/select2-bootstrap.css">
         <!-- Custom Theme Style -->
         <link href="../build/css/custom.min.css" rel="stylesheet">
 
@@ -56,7 +56,7 @@
                 background-color:#1abb9c;
                 animation: loading_ infinite 1s;
             }
-        
+
             @keyframes loading_ {
                 0% {
                     margin-right:70px;
@@ -67,6 +67,9 @@
                 }
             }
         </style>
+
+        @yield('style')
+
     </head>
     <body class="nav-md">
         <div class="container body">

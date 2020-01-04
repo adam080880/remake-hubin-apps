@@ -21,5 +21,6 @@ Route::view('/', 'page/admin/dashboard');
 Route::view('/siswa', 'page/admin/siswa');
 Route::view('/perusahaan', 'page/admin/perusahaan');
 Route::view('/pengajuan','page/admin/pengajuan');
+Route::view('/pengaturan', 'page/admin/setting');
 
 Route::view('/test', 'page/test');

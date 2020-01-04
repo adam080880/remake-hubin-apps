@@ -23,6 +23,8 @@ class ClassroomAPI extends Controller
 
         foreach($res as $result) {            
             $result->generation;
+            $result->major;
+            $result->periode;
         }
 
         return response()->json($res);

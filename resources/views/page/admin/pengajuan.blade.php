@@ -16,7 +16,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left mt-2 mb-2">
-                <h4><b>Manage Siswa</b></h4>                
+                <h4><b>Surat Pengajuan</b></h4>                
             </div>
         </div>
         <div class="clearfix"></div>
@@ -32,7 +32,7 @@
                 <div class="x_content">
                     <div class="row">
                         <div class="col-sm-12 col-lg-12">                            
-                            <select name="" id="selector_angkatan" class="form-control">
+                            <select name="" id="selector_periode" class="form-control">
                                 <option value="">Pilih Periode</option>
                             </select>
                         </div>                                                
@@ -62,8 +62,37 @@
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>    
     <script>
 
+        const laravelApi = {
+            periode_id: "",
+            fetchPeriode: function(callback) {                
+                $.ajax({
+                    url: api('periodes'),
+                    type: "GET",
+                    success: function(res) {
+                        callback(res)
+                    },
+                    error: function() {
+
+                    }                    
+                })
+            }
+        }
+
+        const render = {
+            renderPeriode: (data) => {
+                $("#selector_periode").html(`<option value=''>Pilih Periode</option>`)
+                data.map((value, index) => {
+                    $("#selector_periode").append(
+                        `<option value='${value.id}'>${value.periode}</option>`
+                    )
+                })
+            }
+        }
+
         $(document).ready(function() {
-            
+            laravelApi.fetchPeriode((data) => {
+                render.renderPeriode(data)
+            })
         })
 
     </script>
