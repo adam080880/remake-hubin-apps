@@ -18,7 +18,7 @@ use App\Http\Requests\Classroom\ClassroomDeleteRequest;
 class ClassroomAPI extends Controller
 {
     public function get()
-    {
+    {    
         $res = Classroom::get();
 
         foreach($res as $result) {            

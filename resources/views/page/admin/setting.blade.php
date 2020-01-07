@@ -220,7 +220,7 @@
 
                 <form id="formJurusan_edit" method="post">
                     <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel"><b>Tambah Jurusan</b></h4>
+                    <h4 class="modal-title" id="myModalLabel"><b>Edit Jurusan</b></h4>
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                     </button>
                     </div>
@@ -263,23 +263,23 @@
                         <div class="form-group">
                             <label for="" class="label-control">Kelas</label>
                             <input type="text" name="kelas" id="kelas" class="form-control"/>
-                            <div class="form-group">
-                                <label for="" class="label-control">Wali Kelas</label>
-                                <input type="text" name="walas" id="walas" class="form-control"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="label-control">Angkatan</label>
-                                <select type="text" name="angkatan" id="angkatan_kelas" class="form-control"/></select>
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="label-control">Periode</label>
-                                <select type="text" name="periode" id="periode_kelas" class="form-control"/></select>
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="label-control">Jurusan</label>
-                                <select type="text" name="jurusan" id="jurusan_kelas" class="form-control"/></select>
-                            </div>
                         </div>
+                        <div class="form-group">
+                            <label for="" class="label-control">Wali Kelas</label>
+                            <input type="text" name="walas" id="walas" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="label-control">Angkatan</label>
+                            <select type="text" name="angkatan" id="angkatan_kelas" class="form-control"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="label-control">Periode</label>
+                            <select type="text" name="periode" id="periode_kelas" class="form-control"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="label-control">Jurusan</label>
+                            <select type="text" name="jurusan" id="jurusan_kelas" class="form-control"></select>
+                        </div>                        
                         <div class="form-group">
                             <label for="" class="label-control">Action</label>
                             <div class="d-block">
@@ -319,15 +319,15 @@
                         </div>
                         <div class="form-group">
                             <label for="" class="label-control">Angkatan</label>
-                            <select type="text" name="angkatan" id="angkatan_edit_kelas" class="form-control"/></select>
+                            <select type="text" name="angkatan" id="angkatan_edit_kelas" class="form-control"></select>
                         </div>
                         <div class="form-group">
                             <label for="" class="label-control">Periode</label>
-                            <select type="text" name="periode" id="periode_edit_kelas" class="form-control"/></select>
+                            <select type="text" name="periode" id="periode_edit_kelas" class="form-control"></select>
                         </div>
                         <div class="form-group">
                             <label for="" class="label-control">Jurusan</label>
-                            <select type="text" name="jurusan" id="jurusan_edit_kelas" class="form-control"/></select>
+                            <select type="text" name="jurusan" id="jurusan_edit_kelas" class="form-control"></select>
                         </div>
                         <div class="form-group">
                             <label for="" class="label-control">Action</label>
@@ -388,7 +388,7 @@
 
                 <form id="formPeriode_edit" method="post">
                     <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel"><b>Tambah Periode</b></h4>
+                    <h4 class="modal-title" id="myModalLabel"><b>Edit Periode</b></h4>
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                     </button>
                     </div>
@@ -605,6 +605,9 @@
                         id: id
                     },
                     success: function() {
+                        laravelApiFetchAll.generation((data) => {
+                            renderAll.generation(data)
+                        })
                         this_.fetch((data) => {
                             renderAngkatan.table(data)
                         })
@@ -675,6 +678,9 @@
                         id: id
                     },
                     success: function() {
+                        laravelApiFetchAll.major((data) => {
+                            renderAll.major(data)
+                        })
                         this_.fetch((data) => {
                             renderJurusan.table(data)
                         })
@@ -745,6 +751,9 @@
                         id: id
                     },
                     success: function() {
+                        laravelApiFetchAll.periode((data) => {
+                            renderAll.periode(data)
+                        })
                         this_.fetch((data) => {
                             renderPeriode.table(data)
                         })
@@ -951,6 +960,8 @@
 
         const renderAll = {
             generation: (data) => {
+                $("#angkatan_kelas").html("")
+                $("#angkatan_edit_kelas").html("")
                 data.map((value, index) => {
                     $("#angkatan_kelas").append(`<option value='${value.id}'>${value.generation}</option>`)
                     $("#angkatan_edit_kelas").append(`<option value='${value.id}'>${value.generation}</option>`)                    
@@ -965,6 +976,8 @@
                 }) 
             },
             periode: (data) => {
+                $("#periode_kelas").html("")
+                $("#periode_edit_kelas").html("")
                 data.map((value, index) => {
                     $("#periode_kelas").append(`<option value='${value.id}'>${value.periode}</option>`)
                     $("#periode_edit_kelas").append(`<option value='${value.id}'>${value.periode}</option>`)
@@ -979,6 +992,8 @@
                 }) 
             },
             major: (data) => {
+                $("#jurusan_kelas").html("")
+                $("#jurusan_edit_kelas").html("")
                 data.map((value, index) => {
                     $("#jurusan_kelas").append(`<option value='${value.id}'>${value.major}</option>`)
                     $("#jurusan_edit_kelas").append(`<option value='${value.id}'>${value.major}</option>`)
@@ -1031,6 +1046,10 @@
                     laravelApiAngkatan.fetch((data) => {
                         renderAngkatan.table(data)
                     })
+
+                    laravelApiFetchAll.generation((data) => {
+                        renderAll.generation(data)
+                    })
                 })
                 $(".bs-example-modal-angkatan").modal('hide')
                 $("#formAngkatan").trigger('reset')
@@ -1042,6 +1061,10 @@
                 laravelApiAngkatan.put(() => {
                     laravelApiAngkatan.fetch((data) => {
                         renderAngkatan.table(data)
+                    })
+
+                    laravelApiFetchAll.generation((data) => {
+                        renderAll.generation(data)
                     })
                 })
 
@@ -1056,6 +1079,10 @@
                     laravelApiJurusan.fetch((data) => {
                         renderJurusan.table(data)
                     })
+
+                    laravelApiFetchAll.major((data) => {
+                        renderAll.major(data)
+                    })
                 })
                 $(".bs-example-modal-jurusan").modal('hide')
                 $("#formJurusan").trigger('reset')
@@ -1067,6 +1094,10 @@
                 laravelApiJurusan.put(() => {
                     laravelApiJurusan.fetch((data) => {
                         renderJurusan.table(data)
+                    })
+
+                    laravelApiFetchAll.major((data) => {
+                        renderAll.major(data)
                     })
                 })
 
@@ -1081,6 +1112,10 @@
                     laravelApiPeriode.fetch((data) => {
                         renderPeriode.table(data)
                     })
+
+                    laravelApiFetchAll.periode((data) => {
+                        renderAll.periode(data)
+                    })
                 })
                 $(".bs-example-modal-periode").modal('hide')
                 $("#formPeriode").trigger('reset')
@@ -1092,6 +1127,10 @@
                 laravelApiPeriode.put(() => {
                     laravelApiPeriode.fetch((data) => {
                         renderPeriode.table(data)
+                    })
+
+                    laravelApiFetchAll.periode((data) => {
+                        renderAll.periode(data)
                     })
                 })
 

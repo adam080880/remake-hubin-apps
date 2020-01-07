@@ -20,6 +20,7 @@ header("Access-Control-Allow-Headers:X-Requested-With, Content-Type, Accept, Ori
 // Student API //
 // GET Students (All Methods)
 Route::get('student/{student_id}', 'StudentAPI@find');
+Route::get('students/search', 'StudentAPI@search');
 Route::get('students/classroom/{classroom_id}', 'StudentAPI@getByClassroom');
 // CREATE Student
 Route::post('student', 'StudentAPI@post');
@@ -30,8 +31,8 @@ Route::delete('student', 'StudentAPI@delete');
 
 // Application Letter API //
 // GET LetterAPI
-Route::get('applicationletters', 'ApplicationLetterAPI@getByPeriode');
-Route::get('applicationletters/rejected', 'ApplicationLetterAPI@getRejectedByPeriode');
+Route::get('applicationletters/{id}', 'ApplicationLetterAPI@getByPeriode');
+Route::get('applicationletters/rejected/{id}', 'ApplicationLetterAPI@getRejectedByPeriode');
 Route::get('applicationletter/{number}', 'ApplicationLetterAPI@find');
 Route::get('applicationletter/rejected/{number}', 'ApplicationLetterAPI@findRejected');
 // CREATE Application Letter

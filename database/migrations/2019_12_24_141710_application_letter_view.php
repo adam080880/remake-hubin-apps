@@ -16,7 +16,7 @@ class ApplicationLetterView extends Migration
     {
         DB::statement("CREATE VIEW application_letter_view AS 
         SELECT application_letters.id,application_letters.number,application_letters.date
-        ,companies.name,companies.address,students.nisn,students.nis,students.name as student_name,
+        ,companies.name,companies.address,companies.location,companies.receiver,companies.phone,students.nisn,students.nis,students.name as student_name,
         application_letters.status,students.telp,classrooms.classroom,classrooms.periode_id
         FROM application_letters,students,companies,classrooms 
         WHERE application_letters.nisn=students.nisn 
